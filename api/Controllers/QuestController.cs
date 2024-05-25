@@ -1,4 +1,5 @@
 using api.Data;
+using api.Dtos.Quest;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,15 @@ namespace api.Controllers
             }
 
             return Ok(quest.ToQuestDto());
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateQuestRequestDto questDto)
+        {
+            var questModel = questDto.ToQuestFromCreateDTO();
+            _context.Quests.Add(questModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new {id = questModel.Id}, questModel.ToQuestDto());
         }
 
     }
