@@ -15,5 +15,14 @@ namespace api.Mappers
                 CreatedOn = questModel.CreatedOn
             };
         }
+
+        public static Quest ToQuestFromCreateDTO(this CreateQuestRequestDto questDto)
+        {
+            return new Quest
+            {
+                Title = questDto.Title,
+                Description = questDto.Description
+            };
+        }
     }
 }
